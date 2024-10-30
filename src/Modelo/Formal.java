@@ -11,4 +11,16 @@ public abstract  class Formal extends Calzado{
     }
 
     protected abstract double aplicarDescuento();
+
+    public double valorCancelacion(){
+        double venta = valorVentaDoW();
+        double iva = getProducto().impuestoIva();
+        double ImpEsp = getProducto().impEsp();
+        double desc = aplicarDescuento();
+        if (getProducto().getStock()>0){
+            return venta - desc + ImpEsp + iva;
+        }else{
+            return -1;
+        }
+    }
 }

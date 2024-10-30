@@ -1,11 +1,12 @@
 package Modelo;
 
-import Modelo.Calzado;
+import Modelo.*;
 
 public class Producto {
     public int proCod;
     public double valorBase;
     public int Stock;
+    public Calzado calzado;
 
 
     public int getStock() {
@@ -33,10 +34,12 @@ public class Producto {
     }
 
     public double impuestoIva(){
-
+        return (calzado.valorVentaDoW())*(19.0/100);
     };
 
-    public double impEsp(){return 0;};
+    public double impEsp(){
+        return ((this.valorBase)*(7.4/100));
+    };
 
-    public double valorAPagar(){return 0;};
+
 }

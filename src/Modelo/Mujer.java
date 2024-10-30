@@ -1,13 +1,14 @@
 package Modelo;
 
+import java.awt.*;
 import java.time.DayOfWeek;
 
 public class Mujer extends Formal{
 
     private double high;
 
-    public Mujer(Producto _producto, DayOfWeek _dia_venta, double _talle) {
-        super(_producto, _dia_venta, _talle);
+    public Mujer(Producto _producto, DayOfWeek _dia_venta, double _talle, Color _color) {
+        super(_producto, _dia_venta, _talle, _color);
     }
 
     public double aplicarDescuento() {

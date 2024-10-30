@@ -18,7 +18,17 @@ public class Deportivo extends Calzado{
         if (this.tipoMaterial == "Cuero"){impuesto = (getProducto().getValorBase())*(15.0/100);
         }else{impuesto = (getProducto().getValorBase())*(6.0/100);
         }
+        return impuesto;
+    }
 
-        return 0;
+    public double valorCancelacion(){
+        double venta = valorVentaDoW();
+        double iva = getProducto().impuestoIva();
+        double material = impuestoMaterial();
+        if (getProducto().getStock()>0){
+            return venta + material + iva;
+        }else{
+            return -1;
+        }
     }
 }
