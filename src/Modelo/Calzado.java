@@ -22,17 +22,20 @@ public abstract class Calzado {
     }
 
     public double valorVentaDoW(){
-        DayOfWeek dia = this.getDia_venta();
+        DayOfWeek dia = getDia_venta();
         double valSell = 0;
         if (dia.equals(DayOfWeek.SATURDAY) || dia.equals(DayOfWeek.SUNDAY)){
-            valSell = producto.valorBase + (producto.valorBase)*(24.0/100);
+            valSell = producto.getValorBase() + (producto.getValorBase())*(24.0/100);
         } else if (dia.compareTo(DayOfWeek.MONDAY) >= 0 && dia.compareTo(DayOfWeek.FRIDAY) <= 5){
-            valSell = producto.valorBase - (producto.valorBase)*(15.0/100);
+            valSell = producto.getValorBase() - (producto.getValorBase())*(15.0/100);
         }
 
         return valSell;
     }
 
+    public double impuestoIva(){
+        return (valorVentaDoW())*(19.0/100);
+    };
 
     public double getTalle() {
         return talle;

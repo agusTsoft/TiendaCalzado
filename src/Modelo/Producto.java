@@ -3,10 +3,9 @@ package Modelo;
 import Modelo.*;
 
 public class Producto {
-    public int proCod;
-    public double valorBase;
-    public int Stock;
-    public Calzado calzado;
+    private int proCod;
+    private double valorBase;
+    private int Stock;
 
 
     public int getStock() {
@@ -33,13 +32,7 @@ public class Producto {
         this.proCod = proCod;
     }
 
-    public double impuestoIva(){
-        return (calzado.valorVentaDoW())*(19.0/100);
-    };
 
-    public double impEsp(){
-        return ((this.valorBase)*(7.4/100));
-    };
 
 
 }

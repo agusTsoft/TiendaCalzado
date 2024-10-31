@@ -14,8 +14,8 @@ public abstract  class Formal extends Calzado{
 
     public double valorCancelacion(){
         double venta = valorVentaDoW();
-        double iva = getProducto().impuestoIva();
-        double ImpEsp = getProducto().impEsp();
+        double iva = impuestoIva();
+        double ImpEsp = impEsp();
         double desc = aplicarDescuento();
         if (getProducto().getStock()>0){
             return venta - desc + ImpEsp + iva;
@@ -23,4 +23,8 @@ public abstract  class Formal extends Calzado{
             return -1;
         }
     }
+    public double impEsp(){
+
+        return ((getProducto().getValorBase())*(7.4/100));
+    };
 }

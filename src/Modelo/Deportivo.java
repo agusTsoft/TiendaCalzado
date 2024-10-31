@@ -12,10 +12,9 @@ public class Deportivo extends Calzado{
         this.tipoMaterial = mate;
     }
 
-
-    private double impuestoMaterial(){
+    public double impuestoMaterial(){
         double impuesto = 0;
-        if (this.tipoMaterial == "Cuero"){impuesto = (getProducto().getValorBase())*(15.0/100);
+        if (this.tipoMaterial.equals("Cuero")){impuesto = (getProducto().getValorBase())*(15.0/100);
         }else{impuesto = (getProducto().getValorBase())*(6.0/100);
         }
         return impuesto;
@@ -23,7 +22,7 @@ public class Deportivo extends Calzado{
 
     public double valorCancelacion(){
         double venta = valorVentaDoW();
-        double iva = getProducto().impuestoIva();
+        double iva = impuestoIva();
         double material = impuestoMaterial();
         if (getProducto().getStock()>0){
             return venta + material + iva;

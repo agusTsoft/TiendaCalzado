@@ -1,40 +1,56 @@
 package Vista;
 
-import javax.swing.*;
-import java.awt.*;
 import Controlador.Controller;
+import java.util.Scanner;
+import javax.naming.ldap.Control;
+import java.util.HashMap;
 
 public class View {
+    public Controller controlador;
+    public HashMap<String, Runnable> menu = new HashMap<>();
 
-    public void ventana(){
-        JFrame frame = new JFrame();
-        frame.setTitle("Tienda de Calzado");
-        frame.setLayout(new BorderLayout());
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setSize(500, 500);
 
-        JTabbedPane tabbedPane = new JTabbedPane();
-        JPanel panelIngreso = new JPanel();
-        JPanel panelTop = new JPanel();
-        JPanel panelImpuestos = new JPanel();
-        JPanel panelDescuentos = new JPanel();
-        JPanel panelCalMujer = new JPanel();
-
-        tabbedPane.addTab("Ingreso", panelIngreso);
-        tabbedPane.addTab("TOP", panelTop);
-        tabbedPane.addTab("Impuestos", panelImpuestos);
-        tabbedPane.addTab("Descuentos", panelDescuentos);
-        tabbedPane.addTab("Calzado Mujeres", panelCalMujer);
-
-        JTextField T = new JTextField();
-        JTextField Tapellido = new JTextField();
-        JTextField Tdir = new JTextField();
-        JTextField T = new JTextField();
-        JTextField T = new JTextField();
-        JTextField Tnombre = new JTextField();
-
-        frame.add(tabbedPane);
+    public View(HashMap<String, Runnable> menu) {
+        this.menu = menu;
+        this.menu.put("1. Ingresar", Controller::Ingresar);
+        this.menu.put("2. Calzados Mujer", Controller::CalzadosMujer);
+        this.menu.put("3. Valor Venta", Controller::mostrarValorVenta);
+        this.menu.put("4. Calzados Top", Controller::mostrarCalzadosTop);
+        this.menu.put("5. Total Impuesto Especifico", Controller::mostrarTotalImpEsp);
+        this.menu.put("6. Total de descuentos de la tienda", Controller::totalDescuentos);
     }
 
+
+    public void Menu(){
+        Scanner scan = new Scanner(System.in);
+        String opcion;
+
+        for (String key : menu.keySet()){
+            System.out.println(key);
+        }
+
+        System.out.println("Ingrese la opcion del menu --> ");
+        opcion = scan.nextLine();
+
+        // Ejecutar la opción si existe en el menú
+        Runnable accion = menu.get(opcion);
+        if (accion != null) {
+            accion.run();
+        } else if (!opcion.equals("0")) {
+            System.out.println("Opción no válida.");
+        }
+    }
+
+    public void TipoIngreso(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println("1. Deportivo");
+        System.out.println("2. Formal Hombre");
+        System.out.println("3. Formal Mujer");
+        String opcion = scan.nextLine();
+    }
+
+    private void Salir(){
+        System.out.println("Saliendo del sistema....");
+        System.exit(1);
+    }
 }
