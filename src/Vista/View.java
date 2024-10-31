@@ -10,7 +10,7 @@ public class View {
     public HashMap<String, Runnable> menu = new HashMap<>();
 
 
-    public View(HashMap<String, Runnable> menu) {
+    /*public View(HashMap<String, Runnable> menu) {
         this.menu = menu;
         this.menu.put("1. Ingresar", Controller::Ingresar);
         this.menu.put("2. Calzados Mujer", Controller::CalzadosMujer);
@@ -18,7 +18,7 @@ public class View {
         this.menu.put("4. Calzados Top", Controller::mostrarCalzadosTop);
         this.menu.put("5. Total Impuesto Especifico", Controller::mostrarTotalImpEsp);
         this.menu.put("6. Total de descuentos de la tienda", Controller::totalDescuentos);
-    }
+    }*/
 
 
     public void Menu(){

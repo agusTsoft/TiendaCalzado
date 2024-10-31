@@ -1,6 +1,7 @@
 package Vista;
 
 import java.awt.*;
+import javax.naming.ldap.Control;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,13 +12,17 @@ public class Vista extends JFrame{
     public static void main(String[] args) {
         Vista vista = new Vista();
         vista.Ventana();
+
     }
     public Vista(){
         new JFrame();
         setVisible(true);
         setSize(600, 500);
         setLayout(new BorderLayout());
-        setDefaultCloseOperation(EXIT_ON_CLOSE);}
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        Controller controlador = new Controller();
+    }
+
 
     private void Ventana(){
 
@@ -155,7 +160,7 @@ public class Vista extends JFrame{
 
         //---------- Panel Ingreso Mujer ---------------------------------------------------------------------
         JLabel LdowM = new JLabel("Dia de la semana");
-        LdowM.setBounds(75, 50, 100, 25);
+        LdowM.setBounds(75, 50, 120, 25);
         LdowM.setFont(fuente);
         panelMujer.add(LdowM);
         JComboBox<DayOfWeek> comboDoWM = new JComboBox<>(DayOfWeek.values());
@@ -182,11 +187,12 @@ public class Vista extends JFrame{
         panelMujer.add(SpinnerTalle);
 
         JLabel LColor = new JLabel("Color");
-        LColor.setBounds(75, 230, 50, 25);
+        LColor.setBounds(75, 230, 100, 25);
         panelMujer.add(LColor);
+        String[] colorNames = {"Rojo", "Verde", "Azul", "Amarillo", "Naranja", "Negro"};
         Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.ORANGE, Color.BLACK};
-        JComboBox<Color> comboColor = new JComboBox<>(colors);
-        comboColor.setBounds(75, 260, 50, 20);
+        JComboBox<String> comboColor = new JComboBox<>(colorNames);
+        comboColor.setBounds(75, 260, 150, 20);
         panelMujer.add(comboColor);
 
         JButton IngresoBtnMuj = new JButton("Ingresar");
@@ -198,10 +204,52 @@ public class Vista extends JFrame{
                 double talle = getTalle(spin);
                 DayOfWeek dia_venta = getDoW(comboDoW);
                 double high = getHigh(spinTaco);
-                Color color = getColor(comboColor);
+                Color color = colors[comboColor.getSelectedIndex()];
+                System.out.println(color);
             }
         });
         panelMujer.add(IngresoBtnMuj);
+
+        //---------- Panel Ingreso Hombre ---------------------------------------------------------------------
+        JLabel LdowH = new JLabel("Dia de la semana");
+        LdowH.setBounds(75, 50, 120, 25);
+        LdowH.setFont(fuente);
+        panelHombre.add(LdowH);
+        JComboBox<DayOfWeek> comboDoWH = new JComboBox<>(DayOfWeek.values());
+        comboDoWH.setSelectedItem(DayOfWeek.MONDAY);
+        comboDoWH.setBounds(75, 80, 100, 25);
+        panelHombre.add(comboDoWH);
+
+        JLabel LSpinTalleHom = new JLabel("Talle");
+        LSpinTalleHom.setFont(fuente);
+        LSpinTalleHom.setBounds(75, 120, 100, 25);
+        panelHombre.add(LSpinTalleHom);
+        SpinnerNumberModel spinTalleHom = new SpinnerNumberModel(0, 0, 50.0, 0.5);
+        JSpinner SpinnerTalleHom = new JSpinner(spinTalleHom);
+        SpinnerTalleHom.setBounds(75, 150, 50, 25);
+        panelHombre.add(SpinnerTalleHom);
+
+        JLabel LColorHom = new JLabel("Color");
+        LColorHom.setBounds(75, 200, 100, 25);
+        panelHombre.add(LColorHom);
+        String[] colorNamesHom = {"Rojo", "Verde", "Azul", "Amarillo", "Naranja", "Negro"};
+        Color[] colorsHom = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.ORANGE, Color.BLACK};
+        JComboBox<String> comboColorHom = new JComboBox<>(colorNamesHom);
+        comboColorHom.setBounds(75, 230, 150, 20);
+        panelHombre.add(comboColorHom);
+
+        JButton IngresoBtnHom = new JButton("Ingresar");
+        IngresoBtnHom.setBounds(300, 110, 100, 25);
+        IngresoBtnHom.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //Se hace el get de lo ingresado en los campos para mandarlos al controlador
+                double talle = getTalle(spin);
+                DayOfWeek dia_venta = getDoW(comboDoW);
+                Color color = colors[comboColor.getSelectedIndex()];
+            }
+        });
+        panelHombre.add(IngresoBtnHom);
 
         tabbedPane.addTab("Ingreso",mainPanel);
         tabbedPane.addTab("Calzados TOP", panelTop);
@@ -216,7 +264,7 @@ public class Vista extends JFrame{
         panelDeportivo.add(atrasBtn);
         panelHombre.add(atrasBtn2);
         panelMujer.add(atrasBtn3);
-        repaint();
+        revalidate();
     }
 
     private double getTalle(SpinnerNumberModel spin){
@@ -233,10 +281,6 @@ public class Vista extends JFrame{
 
     private DayOfWeek getDoW(JComboBox<DayOfWeek> comboDia){
         return (DayOfWeek) comboDia.getSelectedItem();
-    }
-
-    private Color getColor(JComboBox<Color> comboColor){
-        return (Color) comboColor.getSelectedItem();
     }
 
     private String getTipoDeporte(JComboBox<String> comboTipo){
