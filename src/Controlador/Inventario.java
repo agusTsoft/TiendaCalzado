@@ -11,14 +11,14 @@ public class Inventario {
 
     private void anadir(String tipoCalzado){
 
-        mapProductos.put(tipoCalzado, ); //Por definir
+        //mapProductos.put(tipoCalzado, ); //Por definir
     }
 
     public static int setCodigo(){
-
+        return 0;
     }
 
     public static int getStock(){
-
+        return 0;
     }
 }
