@@ -7,6 +7,11 @@ public class Producto {
     private double valorBase;
     private int Stock;
 
+    public Producto(int proCod, double valorBase, int stock) {
+        this.proCod = proCod;
+        this.valorBase = valorBase;
+        Stock = stock;
+    }
 
     public int getStock() {
         return Stock;

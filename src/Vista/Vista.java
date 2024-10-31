@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.DayOfWeek;
 import Controlador.Controller;
+import org.w3c.dom.Text;
 
 public class Vista extends JFrame{
     public static void main(String[] args) {
@@ -33,6 +34,7 @@ public class Vista extends JFrame{
         JPanel panelDescuentos = new JPanel();
         JPanel panelImpuestos = new JPanel();
         JPanel panelCalMujer = new JPanel();
+        JPanel panelValorVenta = new JPanel();
         JPanel panelDeportivo = new JPanel(null);
         JPanel panelHombre = new JPanel(null);
         JPanel panelMujer = new JPanel(null);
@@ -116,6 +118,7 @@ public class Vista extends JFrame{
         panelDeportivo.add(comboDoW);
 
         JLabel LTipo = new JLabel("Tipo de depore");
+        LTipo.setFont(fuente);
         LTipo.setBounds(300, 50, 100, 25);
         panelDeportivo.add(LTipo);
         String[] tipoDeporte = {"Tenis", "Futbol", "Basquet", "Running"};
@@ -144,7 +147,7 @@ public class Vista extends JFrame{
         panelDeportivo.add(Spinner);
 
         JButton IngresoBtn = new JButton("Ingresar");
-        IngresoBtn.setBounds(300, 110, 100, 25);
+        IngresoBtn.setBounds(300, 210, 100, 25);
         IngresoBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -188,6 +191,7 @@ public class Vista extends JFrame{
 
         JLabel LColor = new JLabel("Color");
         LColor.setBounds(75, 230, 100, 25);
+        LColor.setFont(fuente);
         panelMujer.add(LColor);
         String[] colorNames = {"Rojo", "Verde", "Azul", "Amarillo", "Naranja", "Negro"};
         Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.ORANGE, Color.BLACK};
@@ -196,7 +200,7 @@ public class Vista extends JFrame{
         panelMujer.add(comboColor);
 
         JButton IngresoBtnMuj = new JButton("Ingresar");
-        IngresoBtnMuj.setBounds(300, 110, 100, 25);
+        IngresoBtnMuj.setBounds(300, 210, 100, 25);
         IngresoBtnMuj.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -231,6 +235,7 @@ public class Vista extends JFrame{
 
         JLabel LColorHom = new JLabel("Color");
         LColorHom.setBounds(75, 200, 100, 25);
+        LColorHom.setFont(fuente);
         panelHombre.add(LColorHom);
         String[] colorNamesHom = {"Rojo", "Verde", "Azul", "Amarillo", "Naranja", "Negro"};
         Color[] colorsHom = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.ORANGE, Color.BLACK};
@@ -238,8 +243,16 @@ public class Vista extends JFrame{
         comboColorHom.setBounds(75, 230, 150, 20);
         panelHombre.add(comboColorHom);
 
+        JLabel LvalorBase = new JLabel("Valor base del producto");
+        LvalorBase.setBounds(300, 75, 150, 25);
+        LvalorBase.setFont(fuente);
+        panelHombre.add(LvalorBase);
+        JTextField TvalorBase = new JTextField();
+        TvalorBase.setBounds(300, 100, 100, 25);
+        panelHombre.add(TvalorBase);
+
         JButton IngresoBtnHom = new JButton("Ingresar");
-        IngresoBtnHom.setBounds(300, 110, 100, 25);
+        IngresoBtnHom.setBounds(300, 210, 100, 25);
         IngresoBtnHom.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -247,15 +260,19 @@ public class Vista extends JFrame{
                 double talle = getTalle(spin);
                 DayOfWeek dia_venta = getDoW(comboDoW);
                 Color color = colors[comboColor.getSelectedIndex()];
+                double valorBase = getValorBase(TvalorBase);
             }
         });
         panelHombre.add(IngresoBtnHom);
+
+
 
         tabbedPane.addTab("Ingreso",mainPanel);
         tabbedPane.addTab("Calzados TOP", panelTop);
         tabbedPane.addTab("Descuentos de la tienda",panelDescuentos);
         tabbedPane.addTab("Impuestos",panelImpuestos);
         tabbedPane.addTab("Calzados Mujer",panelCalMujer);
+        tabbedPane.addTab("Valor Venta", panelValorVenta);
         add(tabbedPane);
         panelIngreso.add(Sportbtn);
         panelIngreso.add(Hombtn);
@@ -285,6 +302,22 @@ public class Vista extends JFrame{
 
     private String getTipoDeporte(JComboBox<String> comboTipo){
         return (String) comboTipo.getSelectedItem();
+    }
+
+    private double getValorBase(JTextField TextoValor){
+        double valor;
+        try{
+            valor = Double.parseDouble(TextoValor.getText());
+            if (valor != 0){
+                return valor;
+            }else{
+                JOptionPane.showMessageDialog(null,"Ingrese valor base distinto de 0", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return 0;
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null,"Valor base inrgesado incorrecto", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+        return 0;
     }
 
 
