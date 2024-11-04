@@ -7,8 +7,9 @@ public class Mujer extends Formal{
 
     private double high;
 
-    public Mujer(Producto _producto, DayOfWeek _dia_venta, double _talle, Color _color) {
+    public Mujer(Producto _producto, DayOfWeek _dia_venta, double _talle, Color _color, double _high) {
         super(_producto, _dia_venta, _talle, _color);
+        this.high = _high;
     }
 
     public double aplicarDescuento() {

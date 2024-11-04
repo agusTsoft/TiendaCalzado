@@ -4,11 +4,9 @@ import Modelo.Hombre;
 import Modelo.Mujer;
 import Modelo.Deportivo;
 import Modelo.Producto;
-import Vista.View;
 
+import java.awt.*;
 import java.time.DayOfWeek;
-import java.util.HashMap;
-import java.util.Scanner;
 
 public class Controller {
     public Hombre hombre;
@@ -18,11 +16,23 @@ public class Controller {
 
     }
 
-    public void IngresarDeportivo(double talle, DayOfWeek dia, String tipo, String mat, double valorBase){
+    public void IngresarDeportivo(double talle, DayOfWeek dia, String tipo, String mat, double valorBase, int stock){
         int codigo = Inventario.setCodigo();
-        int stock = Inventario.getStock();
         Producto producto = new Producto(codigo, valorBase, stock);
+        Inventario.anadir(producto);
         Deportivo deportivo1 = new Deportivo(tipo, mat, producto, dia, talle);
+    }
+    public void IngresarMujer(double talle, DayOfWeek dia, double valorBase, int stock, double high, Color color){
+        int codigo = Inventario.setCodigo();
+        Producto producto = new Producto(codigo, valorBase, stock);
+        Inventario.anadir(producto);
+        Mujer muj = new Mujer(producto, dia, talle, color, high);
+    }
+    public void IngresarHombre(double talle, DayOfWeek dia, double valorBase, int stock, Color color){
+        int codigo = Inventario.setCodigo();
+        Producto producto = new Producto(codigo, valorBase, stock);
+        Inventario.anadir(producto);
+        Hombre homb = new Hombre(producto, dia, talle, color);
     }
 
 
