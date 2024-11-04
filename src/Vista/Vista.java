@@ -1,16 +1,14 @@
 package Vista;
 
 import java.awt.*;
-import javax.naming.ldap.Control;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.DayOfWeek;
 import Controlador.Controller;
-import org.w3c.dom.Text;
 
 public class Vista extends JFrame{
-    Controller controlador=  new Controller();
+    Controller controlador = new Controller();
 
     public static void main(String[] args) {
         Vista vista = new Vista();
@@ -27,7 +25,6 @@ public class Vista extends JFrame{
 
 
     private void Ventana(){
-
         JTabbedPane tabbedPane = new JTabbedPane();
         JPanel mainPanel = new JPanel(new CardLayout());
         JPanel panelIngreso = new JPanel(null);
@@ -113,8 +110,10 @@ public class Vista extends JFrame{
         Ldow.setBounds(75, 50, 100, 25);
         Ldow.setFont(fuente);
         panelDeportivo.add(Ldow);                                       // Dia de la semana (Day Of Week)
-        JComboBox<DayOfWeek> comboDoW = new JComboBox<>(DayOfWeek.values());
-        comboDoW.setSelectedItem(DayOfWeek.MONDAY);
+        JComboBox<String> comboDoW = new JComboBox<>();
+        comboDoW.addItem("Semana");
+        comboDoW.addItem("Fin de semana");
+        comboDoW.setSelectedItem("Semana");
         comboDoW.setBounds(75, 80, 100, 25);
         panelDeportivo.add(comboDoW);
 
@@ -170,7 +169,7 @@ public class Vista extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 //Se hace el get de lo ingresado en los campos para mandarlos al controlador
                 double talle = getTalle(spin);
-                DayOfWeek dia_venta = getDoW(comboDoW);                     //Ingreso de los datos (Registrar calzado)
+                String dia_venta = getDoW(comboDoW);                     //Ingreso de los datos (Registrar calzado)
                 String tipo_material = getMaterial(comboMat);
                 String tipo_deporte = getTipoDeporte(comboTipo);
                 double valorBase = getValorBase(TvalorBaseDep);
@@ -185,8 +184,10 @@ public class Vista extends JFrame{
         LdowM.setBounds(75, 50, 120, 25);
         LdowM.setFont(fuente);
         panelMujer.add(LdowM);                                              //Dia de la semana
-        JComboBox<DayOfWeek> comboDoWM = new JComboBox<>(DayOfWeek.values());
-        comboDoWM.setSelectedItem(DayOfWeek.MONDAY);
+        JComboBox<String> comboDoWM = new JComboBox<>();
+        comboDoWM.addItem("Semana");
+        comboDoWM.addItem("Fin de semana");
+        comboDoWM.setSelectedItem("Semana");
         comboDoWM.setBounds(75, 80, 100, 25);
         panelMujer.add(comboDoWM);
 
@@ -241,7 +242,7 @@ public class Vista extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 //Se hace el get de lo ingresado en los campos para mandarlos al controlador
                 double talle = getTalle(spin);
-                DayOfWeek dia_venta = getDoW(comboDoW);                     //Ingreso de los datos (Registrar calzado)
+                String dia_venta = getDoW(comboDoWM);                     //Ingreso de los datos (Registrar calzado)
                 double high = getHigh(spinTaco);
                 Color color = colors[comboColor.getSelectedIndex()];
                 double valorBase = getValorBase(TvalorBaseMuj);
@@ -256,8 +257,10 @@ public class Vista extends JFrame{
         LdowH.setBounds(75, 50, 120, 25);
         LdowH.setFont(fuente);
         panelHombre.add(LdowH);                                             //Dia de la semana (Day of Week)
-        JComboBox<DayOfWeek> comboDoWH = new JComboBox<>(DayOfWeek.values());
-        comboDoWH.setSelectedItem(DayOfWeek.MONDAY);
+        JComboBox<String> comboDoWH = new JComboBox<>();
+        comboDoWH.addItem("Semana");
+        comboDoWH.addItem("Fin de semana");
+        comboDoWH.setSelectedItem("Semana");
         comboDoWH.setBounds(75, 80, 100, 25);
         panelHombre.add(comboDoWH);
 
@@ -303,8 +306,8 @@ public class Vista extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 //Se hace el get de lo ingresado en los campos para mandarlos al controlador
                 double talle = getTalle(spin);                          //Ingreso de los datos (Registrar calzado))
-                DayOfWeek dia_venta = getDoW(comboDoW);
-                Color color = colors[comboColor.getSelectedIndex()];
+                String dia_venta = getDoW(comboDoWH);
+                Color color = colorsHom[comboColor.getSelectedIndex()];
                 double valorBase = getValorBase(TvalorBase);
                 int stock = getStock(TStockH);
                 controlador.IngresarHombre(talle, dia_venta, valorBase, stock, color);
@@ -313,7 +316,9 @@ public class Vista extends JFrame{
         panelHombre.add(IngresoBtnHom);
 
 
+        //---------------------------  -------------------------
 
+        //---------------- Add -------------------------------
         tabbedPane.addTab("Ingreso",mainPanel);
         tabbedPane.addTab("Calzados TOP", panelTop);
         tabbedPane.addTab("Descuentos de la tienda",panelDescuentos);
@@ -343,8 +348,8 @@ public class Vista extends JFrame{
         return comboMat.getSelectedItem().toString();
     }
 
-    private DayOfWeek getDoW(JComboBox<DayOfWeek> comboDia){
-        return (DayOfWeek) comboDia.getSelectedItem();
+    private String getDoW(JComboBox<String> comboDia){
+        return (String) comboDia.getSelectedItem();
     }
 
     private String getTipoDeporte(JComboBox<String> comboTipo){

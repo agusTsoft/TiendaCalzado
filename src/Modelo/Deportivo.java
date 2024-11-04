@@ -6,7 +6,7 @@ public class Deportivo extends Calzado{
     private String tipoDeporte;
     private String tipoMaterial;
 
-    public Deportivo(String depo, String mate, Producto producto, DayOfWeek dia, double talle){
+    public Deportivo(String depo, String mate, Producto producto, String dia, double talle){
         super(producto, dia,  talle);
         this.tipoDeporte = depo;
         this.tipoMaterial = mate;

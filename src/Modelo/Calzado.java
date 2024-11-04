@@ -4,12 +4,12 @@ import java.time.DayOfWeek;
 import Modelo.Producto;
 
 public abstract class Calzado {
-    protected DayOfWeek dia_venta;
+    protected String dia_venta;
     protected double talle;
     private Producto producto;
 
     public Calzado(Producto _producto,
-                   DayOfWeek _dia_venta,
+                   String _dia_venta,
                    double _talle){
         this.producto = _producto;
         this.talle = _talle;
@@ -17,16 +17,16 @@ public abstract class Calzado {
     }
 
 
-    public DayOfWeek getDia_venta() {
+    public String getDia_venta() {
         return dia_venta;
     }
 
     public double valorVentaDoW(){
-        DayOfWeek dia = getDia_venta();
+        String dia = getDia_venta();
         double valSell = 0;
-        if (dia.equals(DayOfWeek.SATURDAY) || dia.equals(DayOfWeek.SUNDAY)){
+        if (dia.equalsIgnoreCase("Semana")){
             valSell = producto.getValorBase() + (producto.getValorBase())*(24.0/100);
-        } else if (dia.compareTo(DayOfWeek.MONDAY) >= 0 && dia.compareTo(DayOfWeek.FRIDAY) <= 5){
+        } else if (dia.equalsIgnoreCase("Fin de semana") && dia.equalsIgnoreCase("Fin de semana")){
             valSell = producto.getValorBase() - (producto.getValorBase())*(15.0/100);
         }
 

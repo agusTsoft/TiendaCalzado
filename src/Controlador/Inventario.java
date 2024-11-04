@@ -1,5 +1,6 @@
 package Controlador;
 
+import Modelo.Calzado;
 import Modelo.Producto;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.NoSuchElementException;
 public class Inventario {
 
     public static ArrayList<Producto> productos = new ArrayList<>();
+    public static ArrayList<Calzado> calzados = new ArrayList<>();
 
     public static void anadir(Producto producto){
         productos.add(producto);
