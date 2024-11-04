@@ -111,16 +111,16 @@ public class Vista extends JFrame{
         JLabel Ldow = new JLabel("Dia de la semana");
         Ldow.setBounds(75, 50, 100, 25);
         Ldow.setFont(fuente);
-        panelDeportivo.add(Ldow);
+        panelDeportivo.add(Ldow);                                       // Dia de la semana (Day Of Week)
         JComboBox<DayOfWeek> comboDoW = new JComboBox<>(DayOfWeek.values());
         comboDoW.setSelectedItem(DayOfWeek.MONDAY);
         comboDoW.setBounds(75, 80, 100, 25);
         panelDeportivo.add(comboDoW);
 
-        JLabel LTipo = new JLabel("Tipo de depore");
+        JLabel LTipo = new JLabel("Tipo de deporte");
         LTipo.setFont(fuente);
         LTipo.setBounds(300, 50, 100, 25);
-        panelDeportivo.add(LTipo);
+        panelDeportivo.add(LTipo);                                      //Tipo de deporte
         String[] tipoDeporte = {"Tenis", "Futbol", "Basquet", "Running"};
         JComboBox<String> comboTipo = new JComboBox<>(tipoDeporte);
         comboTipo.setBounds(300, 80, 100, 25);
@@ -130,7 +130,7 @@ public class Vista extends JFrame{
         LMat.setBounds(75, 110, 100, 25);
         LMat.setFont(fuente);
         panelDeportivo.add(LMat);
-        JComboBox<String> comboMat = new JComboBox<>();
+        JComboBox<String> comboMat = new JComboBox<>();                 //Tipo de material
         comboMat.addItem("Cuero");
         comboMat.addItem("Lona");
         comboMat.setSelectedItem("Cuero");
@@ -140,23 +140,33 @@ public class Vista extends JFrame{
         JLabel LSpin = new JLabel("Talle");
         LSpin.setFont(fuente);
         LSpin.setBounds(75, 170, 100, 25);
-        panelDeportivo.add(LSpin);
+        panelDeportivo.add(LSpin);                                          //Talle del ccalzado
         SpinnerNumberModel spin = new SpinnerNumberModel(0, 0, 50.0, 0.5);
         JSpinner Spinner = new JSpinner(spin);
         Spinner.setBounds(75, 200, 50, 25);
         panelDeportivo.add(Spinner);
 
+        JLabel LvalorBaseDep = new JLabel("Valor base del producto");
+        LvalorBaseDep.setBounds(300, 120, 150, 25);
+        LvalorBaseDep.setFont(fuente);
+        panelDeportivo.add(LvalorBaseDep);                                     //Valor Base
+        JTextField TvalorBaseDep = new JTextField();
+        TvalorBaseDep.setBounds(300, 150, 100, 25);
+        panelDeportivo.add(TvalorBaseDep);
+
+
+
         JButton IngresoBtn = new JButton("Ingresar");
-        IngresoBtn.setBounds(300, 210, 100, 25);
+        IngresoBtn.setBounds(300, 260, 100, 25);
         IngresoBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Se hace el get de lo ingresado en los campos para mandarlos al controlador
                 double talle = getTalle(spin);
-                DayOfWeek dia_venta = getDoW(comboDoW);
+                DayOfWeek dia_venta = getDoW(comboDoW);                     //Ingreso de los datos (Registrar calzado)
                 String tipo_material = getMaterial(comboMat);
                 String tipo_deporte = getTipoDeporte(comboTipo);
-
+                double valorBase = getValorBase(TvalorBaseDep);
             }
         });
         panelDeportivo.add(IngresoBtn);
@@ -165,7 +175,7 @@ public class Vista extends JFrame{
         JLabel LdowM = new JLabel("Dia de la semana");
         LdowM.setBounds(75, 50, 120, 25);
         LdowM.setFont(fuente);
-        panelMujer.add(LdowM);
+        panelMujer.add(LdowM);                                              //Dia de la semana
         JComboBox<DayOfWeek> comboDoWM = new JComboBox<>(DayOfWeek.values());
         comboDoWM.setSelectedItem(DayOfWeek.MONDAY);
         comboDoWM.setBounds(75, 80, 100, 25);
@@ -174,7 +184,7 @@ public class Vista extends JFrame{
         JLabel LSpinTaco = new JLabel("Altura del taco (cm)");
         LSpinTaco.setFont(fuente);
         LSpinTaco.setBounds(75, 110, 100, 25);
-        panelMujer.add(LSpinTaco);
+        panelMujer.add(LSpinTaco);                                          //Altura del taco
         SpinnerNumberModel spinTaco = new SpinnerNumberModel(0, 0, 25, 1);
         JSpinner SpinnerTaco = new JSpinner(spinTaco);
         SpinnerTaco.setBounds(75, 140, 50, 25);
@@ -183,7 +193,7 @@ public class Vista extends JFrame{
         JLabel LSpinTalle = new JLabel("Talle");
         LSpinTalle.setFont(fuente);
         LSpinTalle.setBounds(75, 170, 100, 25);
-        panelMujer.add(LSpinTalle);
+        panelMujer.add(LSpinTalle);                                         //Talle del calzado
         SpinnerNumberModel spinTalle = new SpinnerNumberModel(0, 0, 50.0, 0.5);
         JSpinner SpinnerTalle = new JSpinner(spinTalle);
         SpinnerTalle.setBounds(75, 200, 50, 25);
@@ -192,24 +202,32 @@ public class Vista extends JFrame{
         JLabel LColor = new JLabel("Color");
         LColor.setBounds(75, 230, 100, 25);
         LColor.setFont(fuente);
-        panelMujer.add(LColor);
+        panelMujer.add(LColor);                                             //Color del calzado formal
         String[] colorNames = {"Rojo", "Verde", "Azul", "Amarillo", "Naranja", "Negro"};
         Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.ORANGE, Color.BLACK};
         JComboBox<String> comboColor = new JComboBox<>(colorNames);
         comboColor.setBounds(75, 260, 150, 20);
         panelMujer.add(comboColor);
 
+        JLabel LvalorBaseMuj = new JLabel("Valor base del producto");
+        LvalorBaseMuj.setBounds(300, 120, 150, 25);
+        LvalorBaseMuj.setFont(fuente);
+        panelMujer.add(LvalorBaseMuj);                                      //Valor base del producto
+        JTextField TvalorBaseMuj = new JTextField();
+        TvalorBaseMuj.setBounds(300, 150, 100, 25);
+        panelMujer.add(TvalorBaseMuj);
+
         JButton IngresoBtnMuj = new JButton("Ingresar");
-        IngresoBtnMuj.setBounds(300, 210, 100, 25);
+        IngresoBtnMuj.setBounds(300, 260, 100, 25);
         IngresoBtnMuj.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Se hace el get de lo ingresado en los campos para mandarlos al controlador
                 double talle = getTalle(spin);
-                DayOfWeek dia_venta = getDoW(comboDoW);
+                DayOfWeek dia_venta = getDoW(comboDoW);                     //Ingreso de los datos (Registrar calzado)
                 double high = getHigh(spinTaco);
                 Color color = colors[comboColor.getSelectedIndex()];
-                System.out.println(color);
+                double valorBase = getValorBase(TvalorBaseMuj);
             }
         });
         panelMujer.add(IngresoBtnMuj);
@@ -218,7 +236,7 @@ public class Vista extends JFrame{
         JLabel LdowH = new JLabel("Dia de la semana");
         LdowH.setBounds(75, 50, 120, 25);
         LdowH.setFont(fuente);
-        panelHombre.add(LdowH);
+        panelHombre.add(LdowH);                                             //Dia de la semana (Day of Week)
         JComboBox<DayOfWeek> comboDoWH = new JComboBox<>(DayOfWeek.values());
         comboDoWH.setSelectedItem(DayOfWeek.MONDAY);
         comboDoWH.setBounds(75, 80, 100, 25);
@@ -227,7 +245,7 @@ public class Vista extends JFrame{
         JLabel LSpinTalleHom = new JLabel("Talle");
         LSpinTalleHom.setFont(fuente);
         LSpinTalleHom.setBounds(75, 120, 100, 25);
-        panelHombre.add(LSpinTalleHom);
+        panelHombre.add(LSpinTalleHom);                                     //Talle del calzado
         SpinnerNumberModel spinTalleHom = new SpinnerNumberModel(0, 0, 50.0, 0.5);
         JSpinner SpinnerTalleHom = new JSpinner(spinTalleHom);
         SpinnerTalleHom.setBounds(75, 150, 50, 25);
@@ -236,7 +254,7 @@ public class Vista extends JFrame{
         JLabel LColorHom = new JLabel("Color");
         LColorHom.setBounds(75, 200, 100, 25);
         LColorHom.setFont(fuente);
-        panelHombre.add(LColorHom);
+        panelHombre.add(LColorHom);                                         //Color del calzado
         String[] colorNamesHom = {"Rojo", "Verde", "Azul", "Amarillo", "Naranja", "Negro"};
         Color[] colorsHom = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.ORANGE, Color.BLACK};
         JComboBox<String> comboColorHom = new JComboBox<>(colorNamesHom);
@@ -244,20 +262,22 @@ public class Vista extends JFrame{
         panelHombre.add(comboColorHom);
 
         JLabel LvalorBase = new JLabel("Valor base del producto");
-        LvalorBase.setBounds(300, 75, 150, 25);
+        LvalorBase.setBounds(300, 120, 150, 25);
         LvalorBase.setFont(fuente);
-        panelHombre.add(LvalorBase);
+        panelHombre.add(LvalorBase);                                        //Valor base del producto
         JTextField TvalorBase = new JTextField();
-        TvalorBase.setBounds(300, 100, 100, 25);
+        TvalorBase.setBounds(300, 150, 100, 25);
         panelHombre.add(TvalorBase);
 
+
+
         JButton IngresoBtnHom = new JButton("Ingresar");
-        IngresoBtnHom.setBounds(300, 210, 100, 25);
+        IngresoBtnHom.setBounds(300, 260, 100, 25);
         IngresoBtnHom.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Se hace el get de lo ingresado en los campos para mandarlos al controlador
-                double talle = getTalle(spin);
+                double talle = getTalle(spin);                          //Ingreso de los datos (Registrar calzado))
                 DayOfWeek dia_venta = getDoW(comboDoW);
                 Color color = colors[comboColor.getSelectedIndex()];
                 double valorBase = getValorBase(TvalorBase);

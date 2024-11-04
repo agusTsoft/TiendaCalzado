@@ -2,23 +2,30 @@ package Controlador;
 
 import Modelo.Producto;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Inventario {
 
-    private HashMap<String, ArrayList<Object>> mapProductos;
+    public static ArrayList<Producto> productos = new ArrayList<>();
+    public static ArrayList<Integer> codigos = new ArrayList();
 
-    private void anadir(String tipoCalzado){
+    private void anadir(Producto producto){
 
-        //mapProductos.put(tipoCalzado, ); //Por definir
+
     }
 
     public static int setCodigo(){
-        return 0;
+        for (Producto i : productos){
+            codigos.add(i.getProCod());
+        }
+        return codigos.size()+1;
     }
 
     public static int getStock(){
         return 0;
     }
+
 }
