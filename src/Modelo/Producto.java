@@ -25,19 +25,10 @@ public class Producto {
         return valorBase;
     }
 
-    public void setValorBase(double valorBase) {
-        this.valorBase = valorBase;
-    }
 
     public int getProCod() {
         return proCod;
     }
-
-    public void setProCod(int proCod) {
-        this.proCod = proCod;
-    }
-
-
 
 
 }

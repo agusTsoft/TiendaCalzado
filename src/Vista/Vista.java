@@ -2,10 +2,15 @@ package Vista;
 
 import java.awt.*;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.Collections;
+
 import Controlador.Controller;
+import Controlador.Inventario;
+import Modelo.Calzado;
+import Modelo.Mujer;
 
 public class Vista extends JFrame{
     Controller controlador = new Controller();
@@ -28,11 +33,11 @@ public class Vista extends JFrame{
         JTabbedPane tabbedPane = new JTabbedPane();
         JPanel mainPanel = new JPanel(new CardLayout());
         JPanel panelIngreso = new JPanel(null);
-        JPanel panelTop = new JPanel();
-        JPanel panelDescuentos = new JPanel();
-        JPanel panelImpuestos = new JPanel();
-        JPanel panelCalMujer = new JPanel();
-        JPanel panelValorVenta = new JPanel();
+        JPanel panelTop = new JPanel(null);
+        JPanel panelDescuentos = new JPanel(null);
+        JPanel panelImpuestos = new JPanel(null);
+        JPanel panelCalMujer = new JPanel(null);
+        JPanel panelValorVenta = new JPanel(null);
         JPanel panelDeportivo = new JPanel(null);
         JPanel panelHombre = new JPanel(null);
         JPanel panelMujer = new JPanel(null);
@@ -316,7 +321,60 @@ public class Vista extends JFrame{
         panelHombre.add(IngresoBtnHom);
 
 
-        //---------------------------  -------------------------
+        //--------------------------- Calzados Mujer -------------------------
+        //Debe mostrar Día de venta, altura de taco y descuento.
+        JLabel calzado = new JLabel("Calzado:");
+        calzado.setBounds(100, 50, 75, 25);
+        panelCalMujer.add(calzado);
+        JComboBox<Integer> comboCalMuj = new JComboBox<>();
+        //ArrayList<Mujer> CM;
+        comboCalMuj.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                ArrayList<Mujer> calsMujer = controlador.getCalMuj();
+                //setCM(CM, calsMujer);
+                for (Mujer i : calsMujer){
+                    comboCalMuj.addItem(i.getProducto().getProCod());
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                comboCalMuj.removeAllItems();
+            }
+        });
+        comboCalMuj.setBounds(100, 80, 50, 25);
+        panelCalMujer.add(comboCalMuj);
+        JLabel Ldia = new JLabel("Dia de venta: ");
+        JLabel Lvv = new JLabel("Valor venta: ");
+        JLabel Lhigh = new JLabel("Altura de taco: ");
+
+        comboCalMuj.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                Ldia.setText("Dia de venta: " + comboCalMuj.getSelectedItem());
+            }
+        });
+
+        //---------------- ## ------------- Valor Venta ------------- ## ---------------
+        ArrayList<Calzado> AVV = new ArrayList<>();
+        JLabel LVenta = new JLabel("Valor de venta del ultimo Calzado ingresado: ");
+        LVenta.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (!Inventario.calzados.values().isEmpty()){
+                    AVV.addAll(Inventario.calzados.values());
+                    LVenta.setText("Valor de venta del ultimo Calzado ingresado: \n" + AVV.getLast().valorVentaDoW());
+                }
+
+            }
+            @Override
+            public void focusLost(FocusEvent e) {            }
+        });
+        Font fuenteVenta = new Font("Arial", Font.BOLD, 17);
+        LVenta.setFont(fuenteVenta);
+        LVenta.setBounds(50, 75, 450, 300);
+        panelValorVenta.add(LVenta);
 
         //---------------- Add -------------------------------
         tabbedPane.addTab("Ingreso",mainPanel);
@@ -335,6 +393,7 @@ public class Vista extends JFrame{
         panelMujer.add(atrasBtn3);
         revalidate();
     }
+
 
     private double getTalle(SpinnerNumberModel spin){
         return Double.parseDouble(spin.getNumber().toString());
@@ -355,7 +414,9 @@ public class Vista extends JFrame{
     private String getTipoDeporte(JComboBox<String> comboTipo){
         return (String) comboTipo.getSelectedItem();
     }
+    private void setCM (ArrayList<Mujer> array){
 
+    }
     private double getValorBase(JTextField TextoValor){
         double valor;
         try{
