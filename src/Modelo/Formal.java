@@ -1,6 +1,7 @@
 package Modelo;
 
-import java.time.DayOfWeek;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.awt.Color;
 public abstract  class Formal extends Calzado{
     protected Color color;
@@ -24,7 +25,8 @@ public abstract  class Formal extends Calzado{
         }
     }
     public double impEsp(){
-
-        return ((getProducto().getValorBase())*(7.4/100));
+        BigDecimal bd = new BigDecimal((getProducto().getValorBase())*(7.4/100));
+        bd = bd.setScale(3, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     };
 }

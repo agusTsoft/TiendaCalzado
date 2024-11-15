@@ -9,6 +9,6 @@ public class Hombre extends Formal{
     }
 
     public double aplicarDescuento(){
-        return color.equals(Color.RED) || color.equals(Color.GREEN) ? (valorVentaDoW())/(25.0/100): 0;
+        return color.equals(Color.RED) || color.equals(Color.GREEN) ? (valorVentaDoW())*(25.0/100): 0;
     }
 }

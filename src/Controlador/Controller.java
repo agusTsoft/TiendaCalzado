@@ -2,7 +2,9 @@ package Controlador;
 
 import Modelo.*;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.NoninvertibleTransformException;
 import java.lang.reflect.Array;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
@@ -50,14 +52,62 @@ public class Controller {
         return array;
     }
 
-    public static void CalzadosMujer(){
-
+    public void calMujData(JComboBox<Integer> combo, JLabel dia, JLabel vv, JLabel high){
+        for (Integer i : Inventario.calzados.keySet()){
+            if (combo.getSelectedItem() == i){
+                dia.setText("Dia de venta: " + Inventario.calzados.get(i).getDia_venta());
+                vv.setText("Valor de venta: " + Inventario.calzados.get(i).valorVentaDoW());
+                high.setText("Altura de taco: " + ((Mujer) Inventario.calzados.get(i)).getHigh());
+            }
+        }
     }
+
+    public String getTotalIE(){
+        double acum = 0;
+        if (!Inventario.calzados.isEmpty()){
+            for (Calzado i : Inventario.calzados.values()){
+                if (i instanceof Mujer){
+                    acum += ((Mujer) i).impEsp();
+                }else if (i instanceof Hombre){
+                    acum += ((Hombre) i).impEsp();
+                }
+            }
+            return "$" + String.valueOf(acum);
+        }
+        return " - No hay calzados registrados - ";
+    }
+
+    public String getTotalDesc(){
+        double acum = 0;
+        if (!Inventario.calzados.isEmpty()){
+            for (Calzado i : Inventario.calzados.values()){
+                if (i instanceof Mujer){
+                    acum += ((Mujer) i).aplicarDescuento();
+                }else if (i instanceof Hombre){
+                    acum += ((Hombre) i).aplicarDescuento();
+                }
+            }
+            return "$" + String.valueOf(acum);
+        }
+        return " - No hay calzados registrados - ";
+    }
+
+    public String getCantTop(){
+        Integer total = 0;
+        if(!Inventario.calzados.isEmpty()){
+            for (Calzado i : Inventario.calzados.values()){
+                if(i.getProducto().getValorBase()>80000){
+                    total+=1;
+                }
+            }
+            return String.valueOf(total);
+        }
+        return String.valueOf(total);
+    }
+
     public static void mostrarValorVenta(){
 
     }
     public static void mostrarCalzadosTop(){}
-    public static void mostrarTotalImpEsp(){}
-    public static void totalDescuentos(){}
 }
 

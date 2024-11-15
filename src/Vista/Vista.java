@@ -2,6 +2,8 @@ package Vista;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.event.*;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
@@ -47,7 +49,15 @@ public class Vista extends JFrame{
         mainPanel.add(panelHombre, "Panel Hombre");
         mainPanel.add(panelMujer, "Panel Mujer");
 
-        //#------------ Panel de ingresos -------------
+
+        tabbedPane.addTab("Ingreso",mainPanel);
+        tabbedPane.addTab("Calzados TOP", panelTop);
+        tabbedPane.addTab("Descuentos de la tienda",panelDescuentos);
+        tabbedPane.addTab("Impuestos",panelImpuestos);
+        tabbedPane.addTab("Calzados Mujer",panelCalMujer);
+        tabbedPane.addTab("Valor Venta", panelValorVenta);
+
+        //#------------ Panel de ingresos ------------- LISTO
         JButton Sportbtn = new JButton("Deportivo");
         Sportbtn.setBounds(125, 100, 100, 30);
         JButton Hombtn = new JButton("Hombre");
@@ -110,7 +120,7 @@ public class Vista extends JFrame{
             }
         });
 
-        //---------- Panel Ingreso Deportivo ---------------------------------------------------------------------
+        //---------- Panel Ingreso Deportivo --------------------------------------------------------------------- LISTO
         JLabel Ldow = new JLabel("Dia de la semana");
         Ldow.setBounds(75, 50, 100, 25);
         Ldow.setFont(fuente);
@@ -184,7 +194,7 @@ public class Vista extends JFrame{
         });
         panelDeportivo.add(IngresoBtn);
 
-        //---------- Panel Ingreso Mujer ---------------------------------------------------------------------
+        //---------- Panel Ingreso Mujer --------------------------------------------------------------------- LISTO
         JLabel LdowM = new JLabel("Dia de la semana");
         LdowM.setBounds(75, 50, 120, 25);
         LdowM.setFont(fuente);
@@ -198,7 +208,7 @@ public class Vista extends JFrame{
 
         JLabel LSpinTaco = new JLabel("Altura del taco (cm)");
         LSpinTaco.setFont(fuente);
-        LSpinTaco.setBounds(75, 110, 100, 25);
+        LSpinTaco.setBounds(75, 110, 120, 25);
         panelMujer.add(LSpinTaco);                                          //Altura del taco
         SpinnerNumberModel spinTaco = new SpinnerNumberModel(0, 0, 25, 1);
         JSpinner SpinnerTaco = new JSpinner(spinTaco);
@@ -227,7 +237,7 @@ public class Vista extends JFrame{
         JLabel LvalorBaseMuj = new JLabel("Valor base del producto");
         LvalorBaseMuj.setBounds(300, 120, 150, 25);
         LvalorBaseMuj.setFont(fuente);
-        panelMujer.add(LvalorBaseMuj);                                      //Valor base del producto
+        panelMujer.add(LvalorBaseMuj);                                      //Valor Base
         JTextField TvalorBaseMuj = new JTextField();
         TvalorBaseMuj.setBounds(300, 150, 100, 25);
         panelMujer.add(TvalorBaseMuj);
@@ -235,7 +245,7 @@ public class Vista extends JFrame{
         JLabel LStockM = new JLabel("Stock");
         LStockM.setBounds(300, 170, 150, 25);
         LStockM.setFont(fuente);
-        panelMujer.add(LStockM);                                     //Valor Base
+        panelMujer.add(LStockM);                                     //Stock
         JTextField TStockM = new JTextField();
         TStockM.setBounds(300, 200, 100, 25);
         panelMujer.add(TStockM);
@@ -257,7 +267,7 @@ public class Vista extends JFrame{
         });
         panelMujer.add(IngresoBtnMuj);
 
-        //---------- Panel Ingreso Hombre ---------------------------------------------------------------------
+        //---------- Panel Ingreso Hombre --------------------------------------------------------------------- LISTO
         JLabel LdowH = new JLabel("Dia de la semana");
         LdowH.setBounds(75, 50, 120, 25);
         LdowH.setFont(fuente);
@@ -289,23 +299,23 @@ public class Vista extends JFrame{
         panelHombre.add(comboColorHom);
 
         JLabel LvalorBase = new JLabel("Valor base del producto");
-        LvalorBase.setBounds(300, 120, 150, 25);
+        LvalorBase.setBounds(300, 50, 150, 25);
         LvalorBase.setFont(fuente);
-        panelHombre.add(LvalorBase);                                        //Valor base del producto
+        panelHombre.add(LvalorBase);                                        //Valor Base
         JTextField TvalorBase = new JTextField();
-        TvalorBase.setBounds(300, 150, 100, 25);
+        TvalorBase.setBounds(300, 80, 100, 25);
         panelHombre.add(TvalorBase);
 
         JLabel LStockH = new JLabel("Stock");
-        LStockH.setBounds(300, 200, 150, 25);
+        LStockH.setBounds(300, 120, 150, 25);
         LStockH.setFont(fuente);
-        panelHombre.add(LStockM);                                     //Valor Base
+        panelHombre.add(LStockH);                                     //Stock
         JTextField TStockH = new JTextField();
-        TStockH.setBounds(300, 230, 100, 25);
+        TStockH.setBounds(300, 150, 100, 25);
         panelHombre.add(TStockH);
 
         JButton IngresoBtnHom = new JButton("Ingresar");
-        IngresoBtnHom.setBounds(300, 260, 100, 25);
+        IngresoBtnHom.setBounds(300, 230, 100, 25);
         IngresoBtnHom.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -321,68 +331,138 @@ public class Vista extends JFrame{
         panelHombre.add(IngresoBtnHom);
 
 
-        //--------------------------- Calzados Mujer -------------------------
+        //--------------------------- Calzados Mujer ------------------------- LISTO
         //Debe mostrar Día de venta, altura de taco y descuento.
         JLabel calzado = new JLabel("Calzado:");
         calzado.setBounds(100, 50, 75, 25);
         panelCalMujer.add(calzado);
         JComboBox<Integer> comboCalMuj = new JComboBox<>();
-        //ArrayList<Mujer> CM;
-        comboCalMuj.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                ArrayList<Mujer> calsMujer = controlador.getCalMuj();
-                //setCM(CM, calsMujer);
-                for (Mujer i : calsMujer){
-                    comboCalMuj.addItem(i.getProducto().getProCod());
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                comboCalMuj.removeAllItems();
-            }
-        });
         comboCalMuj.setBounds(100, 80, 50, 25);
         panelCalMujer.add(comboCalMuj);
         JLabel Ldia = new JLabel("Dia de venta: ");
+        Ldia.setFont(fuente);
+        Ldia.setBounds(300, 80, 200, 25);
         JLabel Lvv = new JLabel("Valor venta: ");
+        Lvv.setFont(fuente);
+        Lvv.setBounds(300, 110, 200, 25);
         JLabel Lhigh = new JLabel("Altura de taco: ");
+        Lhigh.setFont(fuente);
+        Lhigh.setBounds(300, 140, 150, 25);
+
+        tabbedPane.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (tabbedPane.getSelectedIndex() == 4){
+                    ArrayList<Mujer> array = controlador.getCalMuj();
+                    for (Mujer i : array){
+                        if (!contieneValor(comboCalMuj, i.getProducto().getProCod())){
+                            comboCalMuj.addItem(i.getProducto().getProCod());
+                        }
+                    }
+                }
+            }
+        });
 
         comboCalMuj.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                Ldia.setText("Dia de venta: " + comboCalMuj.getSelectedItem());
+                controlador.calMujData(comboCalMuj, Ldia, Lvv, Lhigh);
             }
         });
 
-        //---------------- ## ------------- Valor Venta ------------- ## ---------------
+        panelCalMujer.add(Ldia);
+        panelCalMujer.add(Lvv);
+        panelCalMujer.add(Lhigh);
+
+        //---------------- ## ------------- Valor Venta ------------- ## ---------------       LISTO
         ArrayList<Calzado> AVV = new ArrayList<>();
         JLabel LVenta = new JLabel("Valor de venta del ultimo Calzado ingresado: ");
-        LVenta.addFocusListener(new FocusListener() {
+        tabbedPane.addChangeListener(new ChangeListener() {
             @Override
-            public void focusGained(FocusEvent e) {
-                if (!Inventario.calzados.values().isEmpty()){
-                    AVV.addAll(Inventario.calzados.values());
-                    LVenta.setText("Valor de venta del ultimo Calzado ingresado: \n" + AVV.getLast().valorVentaDoW());
+            public void stateChanged(ChangeEvent e) {
+                if (tabbedPane.getSelectedIndex() == 5){
+                    if (!Inventario.calzados.values().isEmpty()){
+                        AVV.addAll(Inventario.calzados.values());
+                        LVenta.setText("Valor de venta del ultimo Calzado ingresado: \n" + AVV.getLast().valorVentaDoW());
+                    }
+                    else{
+                        LVenta.setText("Valor de venta del ultimo Calzado ingresado: \n" + "No se ingresaron calzados");
+                    }
                 }
-
             }
-            @Override
-            public void focusLost(FocusEvent e) {            }
         });
+
         Font fuenteVenta = new Font("Arial", Font.BOLD, 17);
         LVenta.setFont(fuenteVenta);
         LVenta.setBounds(50, 75, 450, 300);
         panelValorVenta.add(LVenta);
 
+
+
+        //---------------- ## ------------- Total de impuesto Especifico ------------- ## --------------- LISTO
+
+        JLabel LImpEsp = new JLabel("Total del impuesto Específico esperado: ");
+        LImpEsp.setFont(fuente);
+        LImpEsp.setBounds(175, 80, 300, 100);
+        panelImpuestos.add(LImpEsp);
+
+        JLabel valorIE = new JLabel();
+        valorIE.setFont(fuente);
+        valorIE.setBounds(200, 190, 300, 25);
+        panelImpuestos.add(valorIE);
+
+        tabbedPane.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if (tabbedPane.getSelectedIndex() == 3){
+                    valorIE.setText(controlador.getTotalIE());
+                }
+            }
+        });
+
+        //---------------- ## ------------- Total de Descuento ------------- ## --------------- LISTO
+
+        JLabel LDesc = new JLabel("Total de Descuento esperado: ");
+        LDesc.setFont(fuente);
+        LDesc.setBounds(175, 80, 300, 100);
+        panelDescuentos.add(LDesc);
+
+        JLabel valorDesc = new JLabel();
+        valorDesc.setFont(fuente);
+        valorDesc.setBounds(200, 190, 300, 25);
+        panelDescuentos.add(valorDesc);
+
+        tabbedPane.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if(tabbedPane.getSelectedIndex() == 2){
+                    valorDesc.setText(controlador.getTotalDesc());
+                }
+            }
+        });
+
+        //---------------- ## ------------- Calzados TOP ------------- ## ---------------
+        JLabel LTop = new JLabel("Cantidad de clazados top en la tienda: ");
+        LTop.setFont(fuente);
+        LTop.setBounds(175, 80, 300, 100);
+        panelTop.add(LTop);
+
+        JLabel cantTop = new JLabel();
+        Font fuente2 = new Font("Arial", Font.BOLD,34);
+        cantTop.setFont(fuente2);
+        cantTop.setBounds(200, 190, 300, 75);
+        panelTop.add(cantTop);
+
+        tabbedPane.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                if(tabbedPane.getSelectedIndex() == 1){
+                    cantTop.setText(controlador.getCantTop());
+                }
+            }
+        });
+
         //---------------- Add -------------------------------
-        tabbedPane.addTab("Ingreso",mainPanel);
-        tabbedPane.addTab("Calzados TOP", panelTop);
-        tabbedPane.addTab("Descuentos de la tienda",panelDescuentos);
-        tabbedPane.addTab("Impuestos",panelImpuestos);
-        tabbedPane.addTab("Calzados Mujer",panelCalMujer);
-        tabbedPane.addTab("Valor Venta", panelValorVenta);
         add(tabbedPane);
         panelIngreso.add(Sportbtn);
         panelIngreso.add(Hombtn);
@@ -404,18 +484,14 @@ public class Vista extends JFrame{
     }
 
     private String getMaterial(JComboBox<String> comboMat){
-        return comboMat.getSelectedItem().toString();
+        return (String) comboMat.getSelectedItem();
     }
 
     private String getDoW(JComboBox<String> comboDia){
         return (String) comboDia.getSelectedItem();
     }
-
     private String getTipoDeporte(JComboBox<String> comboTipo){
         return (String) comboTipo.getSelectedItem();
-    }
-    private void setCM (ArrayList<Mujer> array){
-
     }
     private double getValorBase(JTextField TextoValor){
         double valor;
@@ -442,4 +518,12 @@ public class Vista extends JFrame{
         return 0;
     }
 
+    public static boolean contieneValor(JComboBox<Integer> comboBox, Integer valor) {
+        for (int i = 0; i < comboBox.getItemCount(); i++) {
+            if (comboBox.getItemAt(i).equals(valor)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

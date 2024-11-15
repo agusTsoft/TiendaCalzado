@@ -21,4 +21,12 @@ public class Mujer extends Formal{
             return descuento;
         }
     }
+
+    public double getHigh() {
+        return high;
+    }
+
+    public void setHigh(double high) {
+        this.high = high;
+    }
 }
