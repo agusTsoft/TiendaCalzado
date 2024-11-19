@@ -167,6 +167,7 @@ public class Vista extends JFrame{
         panelDeportivo.add(LvalorBaseDep);                                     //Valor Base
         JTextField TvalorBaseDep = new JTextField();
         TvalorBaseDep.setBounds(300, 150, 100, 25);
+        TvalorBaseDep.setText("0");
         panelDeportivo.add(TvalorBaseDep);
 
         JLabel LStock = new JLabel("Stock");
@@ -175,6 +176,7 @@ public class Vista extends JFrame{
         panelDeportivo.add(LStock);                                     //Valor Base
         JTextField TStock = new JTextField();
         TStock.setBounds(300, 200, 100, 25);
+        TStock.setText("0");
         panelDeportivo.add(TStock);
 
         JButton IngresoBtn = new JButton("Ingresar");
@@ -189,7 +191,9 @@ public class Vista extends JFrame{
                 String tipo_deporte = getTipoDeporte(comboTipo);
                 double valorBase = getValorBase(TvalorBaseDep);
                 int stock = getStock(TStock);
-                controlador.IngresarDeportivo(talle, dia_venta, tipo_deporte, tipo_material, valorBase, stock);
+                if (stock!=0 && talle!=0 && valorBase != 0){
+                    controlador.IngresarDeportivo(talle, dia_venta, tipo_deporte, tipo_material, valorBase, stock);
+                }
             }
         });
         panelDeportivo.add(IngresoBtn);
@@ -240,6 +244,7 @@ public class Vista extends JFrame{
         panelMujer.add(LvalorBaseMuj);                                      //Valor Base
         JTextField TvalorBaseMuj = new JTextField();
         TvalorBaseMuj.setBounds(300, 150, 100, 25);
+        TvalorBaseMuj.setText("0");
         panelMujer.add(TvalorBaseMuj);
 
         JLabel LStockM = new JLabel("Stock");
@@ -256,13 +261,15 @@ public class Vista extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Se hace el get de lo ingresado en los campos para mandarlos al controlador
-                double talle = getTalle(spin);
+                double talle = getTalle(spinTalle);
                 String dia_venta = getDoW(comboDoWM);                     //Ingreso de los datos (Registrar calzado)
                 double high = getHigh(spinTaco);
                 Color color = colors[comboColor.getSelectedIndex()];
                 double valorBase = getValorBase(TvalorBaseMuj);
                 int stock = getStock(TStockM);
-                controlador.IngresarMujer(talle, dia_venta, valorBase, stock, high, color);
+                if (stock != 0 && talle != 0 && valorBase != 0 && high != 0){
+                    controlador.IngresarMujer(talle, dia_venta, valorBase, stock, high, color);
+                }
             }
         });
         panelMujer.add(IngresoBtnMuj);
@@ -304,6 +311,7 @@ public class Vista extends JFrame{
         panelHombre.add(LvalorBase);                                        //Valor Base
         JTextField TvalorBase = new JTextField();
         TvalorBase.setBounds(300, 80, 100, 25);
+        TvalorBase.setText("0");
         panelHombre.add(TvalorBase);
 
         JLabel LStockH = new JLabel("Stock");
@@ -312,6 +320,7 @@ public class Vista extends JFrame{
         panelHombre.add(LStockH);                                     //Stock
         JTextField TStockH = new JTextField();
         TStockH.setBounds(300, 150, 100, 25);
+        TStockH.setText("0");
         panelHombre.add(TStockH);
 
         JButton IngresoBtnHom = new JButton("Ingresar");
@@ -320,12 +329,14 @@ public class Vista extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Se hace el get de lo ingresado en los campos para mandarlos al controlador
-                double talle = getTalle(spin);                          //Ingreso de los datos (Registrar calzado))
+                double talle = getTalle(spinTalleHom);                          //Ingreso de los datos (Registrar calzado))
                 String dia_venta = getDoW(comboDoWH);
                 Color color = colorsHom[comboColor.getSelectedIndex()];
                 double valorBase = getValorBase(TvalorBase);
                 int stock = getStock(TStockH);
-                controlador.IngresarHombre(talle, dia_venta, valorBase, stock, color);
+                if(valorBase!=0 && talle != 0 && stock != 0){
+                    controlador.IngresarHombre(talle, dia_venta, valorBase, stock, color);
+                }
             }
         });
         panelHombre.add(IngresoBtnHom);
@@ -474,13 +485,24 @@ public class Vista extends JFrame{
         revalidate();
     }
 
-
     private double getTalle(SpinnerNumberModel spin){
-        return Double.parseDouble(spin.getNumber().toString());
+         double valor = Double.parseDouble(spin.getNumber().toString());
+         if (valor == 0.0){
+             JOptionPane.showMessageDialog(null, "Ingrese talle distinto de 0 ", "Advertencia", JOptionPane.WARNING_MESSAGE);
+             return valor;
+         }else{
+             return valor;
+         }
     }
 
     private double getHigh(SpinnerNumberModel spin){
-        return Double.parseDouble(spin.getNumber().toString());
+        double valor = Double.parseDouble(spin.getNumber().toString());
+        if (valor != 0){
+            return valor;
+        }else{
+            JOptionPane.showMessageDialog(null, "Ingrese altura de taco mayor a 0", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            return valor;
+        }
     }
 
     private String getMaterial(JComboBox<String> comboMat){
@@ -511,7 +533,11 @@ public class Vista extends JFrame{
         int valor;
         try{
             valor  = Integer.parseInt(Tstock.getText());
-            return valor;
+            if (valor != 0){
+                return valor;
+            }else{
+                JOptionPane.showMessageDialog(null,"Ingrese stock de 0", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
         }catch (Exception e){
             JOptionPane.showMessageDialog(null,"Stock incorrecto", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
